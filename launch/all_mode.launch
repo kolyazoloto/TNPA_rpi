@@ -1,0 +1,18 @@
+<launch>
+
+    <!--  include file="/home/ubuntu/make_catkin_ws/src/rtimulib_ros/launch/rtimulib_ros.launch"/  -->
+    <include file="/home/ubuntu/make_catkin_ws/src/TNPA/launch/pids.launch" />
+
+  
+    
+    <node  pkg="topic_tools" type="mux" name="mux" args="/mux_topic /manual_twist /autocourse_twist" respawn="true"/>
+    <node  name="diff_angle_pub" pkg="TNPA" type="diff_angle_pub.py" respawn="true"/>
+    <node  name="dht11" pkg="TNPA" type="dht11.py" respawn="true"/>
+    <node  name="pressure" pkg="TNPA" type="pressure.py" respawn="true"/>
+    <node  name="control_effort_to_twist" pkg="TNPA" type="control_effort_to_twist.py" respawn="true"/>
+    <node  name="joy_to_twist" pkg="TNPA" type="joy_to_twist.py" respawn="true"/>
+    <node  name="joyCameraManip" pkg="TNPA" type="joyCameraManipulator.py" respawn="true" output="screen"/>
+    <node  name="to_pwm" pkg="TNPA" type="to_pwm.py" respawn="true" />
+
+</launch>
+

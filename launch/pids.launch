@@ -1,0 +1,25 @@
+<launch>
+    <node  pkg="rostopic" type="rostopic" name="setpoint_pub" args="pub /course/setpoint std_msgs/Float64 0.0" respawn="true"/> 
+    <node name="controller" pkg="pid" type="controller" ns="course">
+        <param name="Ki" value="0.01"/>
+    	<param name="Kd" value="0.1"/>
+    	<param name="Kp" value="5.0"/>
+    	<param name="upper_limit" value="100"/>
+    	<param name="lower_limit" value="-100"/>
+	<param name="topic_from_plant" type="string" value="/imu/delta_angle"/>
+    </node>
+
+
+    <node name="controller" pkg="pid" type="controller" ns="press">
+        <param name="Ki" value="0"/>
+    	<param name="Kd" value="0"/>
+    	<param name="Kp" value="0"/>
+    	<param name="upper_limit" value="100"/>
+    	<param name="lower_limit" value="-100"/>
+	<param name="topic_from_plant" type="string" value="ms5837/pressure"/>
+	<remap from="/interface/depth_to" to="/setpoint">
+    </node>
+
+
+</launch>
+
